@@ -11,7 +11,7 @@ public class Input {
         E = e;
     }
 
-    float a = 10000;
+    float a = 100000;
     int b = 0;
     public void Update(PApplet PA)
     {

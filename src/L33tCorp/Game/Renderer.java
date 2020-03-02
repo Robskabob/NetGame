@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public class Renderer
 {
     Engine E;
-    public float Scale = 3;
+    public float Scale = 5;
     public Vec2 Offset = new Vec2(0,0);
 
 
@@ -22,7 +22,7 @@ public class Renderer
 
     public void Draw(PApplet PA)
     {
-        PA.noStroke();
+        //PA.noStroke();
         for(int i = 0; i < E.M.Width; i++)
         {
             for(int j = 0; j < E.M.Height; j++)

@@ -13,7 +13,7 @@ public class Engine
     public Engine(KeySystem K)
     {
         Key = K;
-        M = new Map(1000,500);
+        M = new Map(600,300);
         I = new Input(this);
         R = new Renderer(this);
     }

@@ -38,9 +38,13 @@ public class Map {
                 if (s2 > min*15) {
                     Teams[i][j] = Teams[h][k];
                     Moral[h][k] -= min*5;
+                    Moral[i][j] = Moral[h][k]/2;
+                    Moral[h][k] /= 2;
                 } else if (s > min*15) {
                     Teams[h][k] = Teams[i][j];
                     Moral[i][j] -= min*5;
+                    Moral[h][k] = Moral[i][j]/2;
+                    Moral[i][j] /= 2;
                 } else if (s > 0 && s2 > 0) {
                     Moral[i][j] -= min/1;
                     Moral[h][k] -= min/1;
@@ -81,19 +85,99 @@ public class Map {
         }
     }
 
+    boolean flip;
+    float f = 1;
     void Draw()
     {
-        float f = 500;
-        for(int i = 0; i < Width; i++)
+        Op1();
+    }
+
+    private void Op2()
+    {
+        for(int i = 0; i < Width; i+=2)
         {
-            for(int j = 0; j < Height; j++)
+            for(int j = 0; j < Height; j+=2)
             {
                 float s = Moral[i][j];
-                Transfer(i,j,i,j+1,s,f);
-                Transfer(i,j,i+1,j,s,f);
-                Moral[i][j] += .5f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+                //Transfer(i,j,i,j+1,s,f);
+                //Transfer(i,j,i+1,j,s,f);
+                Transfer(i,j,i,j-1,s,f);
+                Transfer(i,j,i-1,j,s,f);
+                //Transfer(i,j,i+1,j+1,s,f);
+                Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
             }
         }
+        for(int i = 1; i < Width; i+=2)
+        {
+            for(int j = 1; j < Height; j+=2)
+            {
+                float s = Moral[i][j];
+                //Transfer(i,j,i,j+1,s,f);
+                //Transfer(i,j,i+1,j,s,f);
+                Transfer(i,j,i,j-1,s,f);
+                Transfer(i,j,i-1,j,s,f);
+                //Transfer(i,j,i+1,j+1,s,f);
+                Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+            }
+        }
+        for(int i = 1; i < Width; i+=2)
+        {
+            for(int j = 0; j < Height; j+=2)
+            {
+                float s = Moral[i][j];
+                //Transfer(i,j,i,j+1,s,f);
+                //Transfer(i,j,i+1,j,s,f);
+                Transfer(i,j,i,j-1,s,f);
+                Transfer(i,j,i-1,j,s,f);
+                //Transfer(i,j,i+1,j+1,s,f);
+                Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+            }
+        }
+        for(int i = 0; i < Width; i+=2)
+        {
+            for(int j = 1; j < Height; j+=2)
+            {
+                float s = Moral[i][j];
+                //Transfer(i,j,i,j+1,s,f);
+                //Transfer(i,j,i+1,j,s,f);
+                Transfer(i,j,i,j-1,s,f);
+                Transfer(i,j,i-1,j,s,f);
+                //Transfer(i,j,i+1,j+1,s,f);
+                Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+            }
+        }
+    }
+
+    private void Op1() {
+        flip = !flip;
+        if(flip)
+            for(int i = 0; i < Width; i++)
+            {
+                for(int j = 0; j < Height; j++)
+                {
+                    float s = Moral[i][j];
+                    //Transfer(i,j,i,j+1,s,f);
+                    //Transfer(i,j,i+1,j,s,f);
+                    Transfer(i,j,i,j+1,s,f);
+                    Transfer(i,j,i+1,j,s,f);
+                    //Transfer(i,j,i+1,j+1,s,f);
+                    Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+                }
+            }
+        else
+            for(int i = Width-1; i > 0; --i)
+            {
+                for(int j = Height-1; j > 0; --j)
+                {
+                    float s = Moral[i][j];
+                    //Transfer(i,j,i,j+1,s,f);
+                    //Transfer(i,j,i+1,j,s,f);
+                    Transfer(i,j,i,j-1,s,f);
+                    Transfer(i,j,i-1,j,s,f);
+                    //Transfer(i,j,i+1,j+1,s,f);
+                    Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);igiygiy
+                }
+            }
     }
 
 
