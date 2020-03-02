@@ -33,8 +33,8 @@ public class Map {
     {
         if(h>=0&&k>=0&&h<Width&&k< Height) {
             float s2 = Moral[h][k];
+            float min = Math.min(s,s2);
             if (Teams[i][j] != Teams[h][k]) { // check if same team
-                float min = Math.min(s,s2);
                 if (s2 > min*15) {
                     Teams[i][j] = Teams[h][k];
                     Moral[h][k] -= min*5;
@@ -42,8 +42,8 @@ public class Map {
                     Teams[h][k] = Teams[i][j];
                     Moral[i][j] -= min*5;
                 } else if (s > 0 && s2 > 0) {
-                    Moral[i][j] -= min/2;
-                    Moral[h][k] -= min/2;
+                    Moral[i][j] -= min/1;
+                    Moral[h][k] -= min/1;
                 }
             }
             else if (s != s2) {
@@ -83,7 +83,7 @@ public class Map {
 
     void Draw()
     {
-        float f = 30;
+        float f = 500;
         for(int i = 0; i < Width; i++)
         {
             for(int j = 0; j < Height; j++)
@@ -91,7 +91,7 @@ public class Map {
                 float s = Moral[i][j];
                 Transfer(i,j,i,j+1,s,f);
                 Transfer(i,j,i+1,j,s,f);
-                Moral[i][j] += .1f;// .1f+((1f/Moral[i][j])/100f);
+                Moral[i][j] += .5f;// .1f+((1f/Moral[i][j])/100f);igiygiy
             }
         }
     }
