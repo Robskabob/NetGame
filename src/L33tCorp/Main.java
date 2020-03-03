@@ -15,12 +15,13 @@ public class Main extends PApplet {
 
     public void settings() {
         M = this;
-        size(3000,1500);
+        size(1200,760);
         Key = new KeySystem(this);
         E = new Engine(Key);
     }
 
     public void setup() {
+        frameRate(10);
         background(0);
     }
 

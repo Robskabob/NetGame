@@ -22,7 +22,7 @@ public class Input {
             if(Pos.x < 0 || Pos.y < 0 || Pos.x >= E.M.Width || Pos.y >= E.M.Height)
                 return;
             if(PA.mouseButton == PApplet.LEFT)
-                E.M.Moral[(int)Pos.x][(int)Pos.y] += a;
+                E.M.Troops[(int)Pos.x][(int)Pos.y] += a;
             else
                 E.M.Teams[(int)Pos.x][(int)Pos.y] = b;
         }
