@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public class Renderer
 {
     Engine E;
-    public float Scale = 8;
+    public float Scale = 16;
     public Vec2 Offset = new Vec2(0,0);
 
 
@@ -28,11 +28,22 @@ public class Renderer
             for(int j = 0; j < E.M.Height; j++)
             {
                 float d = E.M.Damage[i][j];
+                float t = E.M.Command[i][j];
                 float m = E.M.Troops[i][j];
                 //PA.fill(PA.color(m*25,m/100,m/10));
-                PA.fill(PA.color(d*5,E.M.Teams[i][j]*2,m*2));
                 //PA.fill(0,E.M.Teams[i][j]*25,0);
+                PA.fill(PA.color(d*5,t/10,m*5));
                 PA.rect(i*Scale,j*Scale,Scale,Scale);
+                //if(d<-.1f) {
+                //    PA.fill(PA.color(100, 0, 0));
+                //    PA.circle(i*Scale,j*Scale,Scale);
+                //}else if(t<0) {
+                //    PA.fill(PA.color(0, 100, 0));
+                //    PA.circle((i-.25f)*Scale,j*Scale,Scale);
+                //}else if(m<0) {
+                //    PA.fill(PA.color(0, 0, 100));
+                //    PA.circle((i-.5f)*Scale,j*Scale,Scale);
+                //}
             }
         }
     }

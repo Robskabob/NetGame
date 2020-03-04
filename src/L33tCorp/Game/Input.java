@@ -11,7 +11,7 @@ public class Input {
         E = e;
     }
 
-    float a = 100000;
+    float a = 1000;
     int b = 0;
     public void Update(PApplet PA)
     {
@@ -22,9 +22,9 @@ public class Input {
             if(Pos.x < 0 || Pos.y < 0 || Pos.x >= E.M.Width || Pos.y >= E.M.Height)
                 return;
             if(PA.mouseButton == PApplet.LEFT)
-                E.M.Troops[(int)Pos.x][(int)Pos.y] += a;
+                E.M.Command[(int)Pos.x][(int)Pos.y] += a;
             else
-                E.M.Teams[(int)Pos.x][(int)Pos.y] = b;
+                E.M.Command[(int)Pos.x][(int)Pos.y] -= a*2;
         }
         if(E.Key.GetKey('w'))
         {
