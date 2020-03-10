@@ -15,9 +15,9 @@ public class Main extends PApplet {
 
     public void settings() {
         M = this;
-        size(3200,2080);
+        size(1366,786);
         Key = new KeySystem(this);
-        E = new Engine(Key);
+        E = new Engine(Key,this);
     }
 
     public void setup() {
@@ -26,7 +26,6 @@ public class Main extends PApplet {
     }
 
     public void draw() {
-        background(0);
         E.Draw(M);
     }
     public void keyPressed() { Key.KeyDown(); }

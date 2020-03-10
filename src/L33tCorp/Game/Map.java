@@ -8,25 +8,50 @@ public class Map {
     {
         Height = height;
         Width = width;
-        Teams = new int[Width][Height];
+        TeamID = new int[Width][Height];
         Terrain = new int[Width][Height];
         Population = new int[Width][Height];
         Troops = new float[Width][Height];
         Damage = new float[Width][Height];
         Command = new float[Width][Height];
-        for(int i = 0; i < Width; i++)
+        for(int i = 1; i < Width; i++)
         {
-            for(int j = 0; j < Height; j++)
+            for(int j = 1; j < Height; j++)
             {
-                Troops[i][j] = (float) Math.random();
-                Teams[i][j] = (int) (Math.random() * 30);
+                Troops[i][j] = 10;//(float) Math.random();
+                TeamID[i][j] = (int) (Math.random() * 100);
+
+                if(TeamID[i][j] > 9)
+                {
+                    TeamID[i][j] = 0;
+                    Troops[i][j] /= 5;
+                }
+                if(TeamID[i-1][j-1]==0) {
+                TeamID[i-1][j-1] = TeamID[i][j];
+                }if(TeamID[i][j-1]==0) {
+                    TeamID[i][j-1] = TeamID[i][j];
+                }if(TeamID[i-1][j]==0) {
+                    TeamID[i-1][j] = TeamID[i][j];
+                }
             }
         }
+        Teams = new Team[10];
+        Teams[0] = new Team(0,0,0);
+        Teams[1] = new Team(1,-1,0);
+        for(int i = 2; i < 10; i++) {
+            Teams[i] = new Team(Rand(-.1f,.1f),Rand(-.1f,.1f),Rand(-.1f,.1f));
+        }
+    }
+
+    public static float Rand(float min,float max)
+    {
+        return ((float)Math.random())*(max-min)+min;
     }
 
     int Height;
     int Width;
-    int[][] Teams;
+    Team[] Teams;
+    int[][] TeamID;
     int[][] Terrain;
     int[][] Population;
     float[][] Troops;
@@ -34,7 +59,7 @@ public class Map {
     float[][] Command;
     public void TakeTile(int i, int j, int h, int k, float min)
     {
-        Teams[h][k] = Teams[i][j];
+        TeamID[h][k] = TeamID[i][j];
         Command[h][k] = Command[i][j];
         Damage[h][k] += min*10;
         Troops[i][j] -= min*5;
@@ -47,7 +72,7 @@ public class Map {
             DammageSpread(i, j, h, k, f);
             float s2 = Troops[h][k];
             float min = Math.min(s,s2);
-            if (Teams[i][j] != Teams[h][k]) { // check if same team
+            if (TeamID[i][j] != TeamID[h][k]) { // check if same team
                 if (s2 > min*15) {
                     TakeTile(h,k,i,j,min);
                 } else if (s > min*15) {
@@ -102,7 +127,7 @@ public class Map {
                 Command[i][j] += .1f;
             else
                 Command[i][j] = 0;
-            if (Teams[i][j] != Teams[h][k]) { // check if same team
+            if (TeamID[i][j] != TeamID[h][k]) { // check if same team
                 Attack(i,j,h,k);
             }
             else if (s != Troops[h][k]) {
@@ -183,15 +208,21 @@ public class Map {
     {
         Op0();
     }
+    private void Team1(int i , int j)
+    {
+        Command[i][j] += Damage[i][j] - Troops[i][j];
+    }
     private void Op0() {
         for(int i = 0; i < Width; i++)
         {
             for(int j = 0; j < Height; j++)
             {
+                Command[i][j] += Teams[TeamID[i][j]].CommandFunction(Damage[i][j],Troops[i][j],0*Command[i][j]);
                 float s = Troops[i][j];
                 Transfer2(i,j,i,j+1,s,f);
                 s = Troops[i][j];
                 Transfer2(i,j,i+1,j,s,f);
+                if(TeamID[i][j] != 0)
                 Troops[i][j] += .1f/(PApplet.max(Damage[i][j],1)*PApplet.max(Troops[i][j],1));
             }
         }

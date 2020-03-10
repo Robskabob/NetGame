@@ -6,7 +6,7 @@ import processing.core.PApplet;
 public class Renderer
 {
     Engine E;
-    public float Scale = 16;
+    public float Scale = 8;
     public Vec2 Offset = new Vec2(0,0);
 
 
